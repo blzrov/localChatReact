@@ -1,10 +1,14 @@
-export default function Settings() {
-  
+export default function Settings({ setUser, setRoom }) {
+  //to do label
   return (
-    <div>
+    <div className="settings">
       <div>
-        Комната <input /> <button type="submit">Подтвердить</button>
-        Юзер <input /> <button type="submit">Подтвердить</button>
+        <p>Ваше имя</p>
+        <input onChange={(e) => setUser(e.target.value)} />
+      </div>
+      <div>
+        <p>Комната</p>
+        <input onChange={(e) => setRoom(e.target.value)} />
       </div>
     </div>
   );

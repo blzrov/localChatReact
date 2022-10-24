@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import MessagesBox from "./components/MessagesBox";
+import Settings from "./components/Settings";
+import Messages from "./components/Messages";
+import InputMessage from "./components/InputMessage";
 
 function App() {
-  const [user, setUser] = React.useState();
-  const [room, setRoom] = React.useState();
-  const [data, setData] = React.useState();
+  const [user, setUser] = useState();
+  const [room, setRoom] = useState();
+  const [data, setData] = useState();
 
   const dataRef = React.useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!localStorage.getItem("belozerov")) {
       localStorage.setItem("belozerov", JSON.stringify({}));
     }
@@ -26,43 +28,23 @@ function App() {
   function Save() {
     localStorage.setItem("belozerov", JSON.stringify(dataRef.current));
     Update();
-    setValue("");
   }
 
-  const [value, setValue] = React.useState("");
-  const buttonClick = () => {
+  const sendMessage = (message) => {
     if (!dataRef.current[room]) {
       dataRef.current[room] = [];
     }
-    dataRef.current[room].push({ user, value });
+    dataRef.current[room].push({ user, value: message });
     Save();
   };
-  //todo input na enter
+
   return (
     <div className="App">
+      <Settings setUser={setUser} setRoom={setRoom} />
       <div>
-        <div>
-          <p>Юзер</p>
-          <input onChange={(e) => setUser(e.target.value)} />
-        </div>
-        <div>
-          <p>Комната</p>
-          <input onChange={(e) => setRoom(e.target.value)} />
-        </div>
+        {room && <Messages currentUser={user} messages={data[room]} />}
+        {user && room && <InputMessage sendMessage={sendMessage} />}
       </div>
-      {room && (
-        <div>
-          <MessagesBox user={user} messages={data[room]} />
-          {user && (
-            <>
-              <input value={value} onChange={(e) => setValue(e.target.value)} />
-              <button type="submit" disabled={!value} onClick={buttonClick}>
-                Отправить
-              </button>
-            </>
-          )}
-        </div>
-      )}
     </div>
   );
 }
