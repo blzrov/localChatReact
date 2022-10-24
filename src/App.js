@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./App.css";
 import Settings from "./components/Settings";
 import Messages from "./components/Messages";
@@ -8,43 +8,57 @@ function App() {
   const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
   const [room, setRoom] = useState(() => sessionStorage.getItem("room") || "");
   const [data, setData] = useState([]);
+  const [quote, setQuote] = useState({});
 
-  const dataRef = React.useRef();
+  const dataRef = useRef();
 
-  useEffect(() => {
-    if (!localStorage.getItem("data")) {
-      localStorage.setItem("data", JSON.stringify({}));
-    }
-    update();
-    window.addEventListener("storage", update);
-    return () => window.removeEventListener("storage", update);
-    //нужно ли обернуть update в useCallback ? (ссылка меняется при рендере?)
+  const getData = useCallback(async () => {
+    dataRef.current = await JSON.parse(localStorage.getItem("data"));
+    setData(dataRef.current);
   }, []);
 
-  const update = () => {
-    dataRef.current = JSON.parse(localStorage.getItem("data"));
-    setData(dataRef.current);
-  };
-
-  const save = () => {
+  const saveData = () => {
     localStorage.setItem("data", JSON.stringify(dataRef.current));
-    update();
+    getData();
   };
 
   const sendMessage = (value) => {
     if (!dataRef.current[room]) {
       dataRef.current[room] = [];
     }
-    dataRef.current[room].push({ user, value });
-    save();
+    dataRef.current[room].push({ user, value, quote: quote || null });
+    setQuote({});
+    saveData();
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem("data")) {
+      localStorage.setItem("data", JSON.stringify({}));
+    }
+    getData();
+    window.addEventListener("storage", getData);
+    return () => window.removeEventListener("storage", getData);
+  }, [getData]);
 
   return (
     <div className="wrapper">
       <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
       <div>
-        {room && <Messages currentUser={user} messages={data[room]} />}
-        {user && room && <InputMessage sendMessage={sendMessage} />}
+        {room && (
+          <Messages
+            currentUser={user}
+            messages={data[room]}
+            quote={quote}
+            setQuote={setQuote}
+          />
+        )}
+        {user && room && (
+          <InputMessage
+            sendMessage={sendMessage}
+            quote={quote}
+            setQuote={setQuote}
+          />
+        )}
       </div>
     </div>
   );

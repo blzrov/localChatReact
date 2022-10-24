@@ -33,7 +33,7 @@
   align-items: flex-start;
 }
 
-.messages .my {
+.messages .currentUserMessage {
   align-self: flex-end;
   background-color: rgba(42, 117, 255, 0.336);
 }
