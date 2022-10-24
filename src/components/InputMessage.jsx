@@ -5,7 +5,6 @@ export default function InputMessage({ sendMessage }) {
   const [inputValue, setInputValue] = useState("");
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
-  //todo input na enter
   return (
     <div className="inputMessage">
       <input
@@ -19,6 +18,13 @@ export default function InputMessage({ sendMessage }) {
         }}
       />
       <button
+        onClick={() => {
+          setIsEmojiOpen(!isEmojiOpen);
+        }}
+      >
+        Emoji
+      </button>
+      <button
         disabled={!inputValue}
         onClick={() => {
           sendMessage(inputValue);
@@ -26,13 +32,6 @@ export default function InputMessage({ sendMessage }) {
         }}
       >
         Отправить
-      </button>
-      <button
-        onClick={() => {
-          setIsEmojiOpen(!isEmojiOpen);
-        }}
-      >
-        Emoji
       </button>
       {isEmojiOpen && (
         <EmojiPicker
