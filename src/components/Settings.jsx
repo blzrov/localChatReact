@@ -1,14 +1,27 @@
-export default function Settings({ setUser, setRoom }) {
-  //to do label
+import React from "react";
+
+export default function Settings({ user, room, setUser, setRoom }) {
   return (
     <div className="settings">
       <div>
         <p>Ваше имя</p>
-        <input onChange={(e) => setUser(e.target.value)} />
+        <input
+          value={user}
+          onChange={(e) => {
+            setUser(e.target.value);
+            sessionStorage.setItem("user", e.target.value);
+          }}
+        />
       </div>
       <div>
         <p>Комната</p>
-        <input onChange={(e) => setRoom(e.target.value)} />
+        <input
+          value={room}
+          onChange={(e) => {
+            setRoom(e.target.value);
+            sessionStorage.setItem("room", e.target.value);
+          }}
+        />
       </div>
     </div>
   );

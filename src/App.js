@@ -5,42 +5,42 @@ import Messages from "./components/Messages";
 import InputMessage from "./components/InputMessage";
 
 function App() {
-  const [user, setUser] = useState();
-  const [room, setRoom] = useState();
-  const [data, setData] = useState();
+  const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
+  const [room, setRoom] = useState(() => sessionStorage.getItem("room") || "");
+  const [data, setData] = useState([]);
 
   const dataRef = React.useRef();
 
   useEffect(() => {
-    if (!localStorage.getItem("belozerov")) {
-      localStorage.setItem("belozerov", JSON.stringify({}));
+    if (!localStorage.getItem("data")) {
+      localStorage.setItem("data", JSON.stringify({}));
     }
-    Update();
-    window.addEventListener("storage", Update);
-    return () => window.removeEventListener("storage", Update);
+    update();
+    window.addEventListener("storage", update);
+    return () => window.removeEventListener("storage", update);
   }, []);
 
-  function Update() {
-    dataRef.current = JSON.parse(localStorage.getItem("belozerov"));
+  const update = () => {
+    dataRef.current = JSON.parse(localStorage.getItem("data"));
     setData(dataRef.current);
-  }
+  };
 
-  function Save() {
-    localStorage.setItem("belozerov", JSON.stringify(dataRef.current));
-    Update();
-  }
+  const save = () => {
+    localStorage.setItem("data", JSON.stringify(dataRef.current));
+    update();
+  };
 
-  const sendMessage = (message) => {
+  const sendMessage = (value) => {
     if (!dataRef.current[room]) {
       dataRef.current[room] = [];
     }
-    dataRef.current[room].push({ user, value: message });
-    Save();
+    dataRef.current[room].push({ user, value });
+    save();
   };
 
   return (
     <div className="App">
-      <Settings setUser={setUser} setRoom={setRoom} />
+      <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
       <div>
         {room && <Messages currentUser={user} messages={data[room]} />}
         {user && room && <InputMessage sendMessage={sendMessage} />}
