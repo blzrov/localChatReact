@@ -1,68 +1,62 @@
 import React from "react";
-import Main from "./components/Main";
+import "./App.css";
+import MessagesBox from "./components/MessagesBox";
 
 function App() {
   const [user, setUser] = React.useState();
   const [room, setRoom] = React.useState();
+  const [data, setData] = React.useState();
 
-  const baza = React.useRef();
+  const dataRef = React.useRef();
 
   React.useEffect(() => {
-    // localStorage.clear();
     if (!localStorage.getItem("belozerov")) {
       localStorage.setItem("belozerov", JSON.stringify({}));
     }
-    baza.current = JSON.parse(localStorage.getItem("belozerov"));
-  }, []);
-  React.useEffect(() => {
-    console.log(baza.current[room]);
-  });
-  React.useEffect(() => {
+    Update();
     window.addEventListener("storage", Update);
+    return () => window.removeEventListener("storage", Update);
   }, []);
 
   function Update() {
-    baza.current = JSON.parse(localStorage.getItem("belozerov"));
+    dataRef.current = JSON.parse(localStorage.getItem("belozerov"));
+    setData(dataRef.current);
   }
 
   function Save() {
-    localStorage.setItem("belozerov", JSON.stringify(baza.current));
+    localStorage.setItem("belozerov", JSON.stringify(dataRef.current));
+    Update();
+    setValue("");
   }
 
   const [value, setValue] = React.useState("");
   const buttonClick = () => {
-    if (!baza.current[room]) {
-      baza.current[room] = [];
+    if (!dataRef.current[room]) {
+      dataRef.current[room] = [];
     }
-    baza.current[room].push({ user, value });
-    console.log(baza.current);
+    dataRef.current[room].push({ user, value });
     Save();
-    Update();
-    console.log(baza.current);
   };
-
+  //todo input na enter
   return (
     <div className="App">
       <div>
         <div>
-          <div>
-            Юзер <input onChange={(e) => setUser(e.target.value)} />
-          </div>
-          <div>
-            Комната <input onChange={(e) => setRoom(e.target.value)} />
-          </div>
+          <p>Юзер</p>
+          <input onChange={(e) => setUser(e.target.value)} />
+        </div>
+        <div>
+          <p>Комната</p>
+          <input onChange={(e) => setRoom(e.target.value)} />
         </div>
       </div>
       {room && (
         <div>
-          <div className="main">
-            <div>Тут типо сообщение</div>
-            <Main data={baza.current[room]} />
-          </div>
+          <MessagesBox user={user} messages={data[room]} />
           {user && (
             <>
-              <input onChange={(e) => setValue(e.target.value)} />
-              <button type="submit" onClick={buttonClick}>
+              <input value={value} onChange={(e) => setValue(e.target.value)} />
+              <button type="submit" disabled={!value} onClick={buttonClick}>
                 Отправить
               </button>
             </>
