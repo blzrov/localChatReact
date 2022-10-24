@@ -4,8 +4,11 @@ export default function Settings({ user, room, setUser, setRoom }) {
   return (
     <div className="settings">
       <div>
-        <p>Ваше имя</p>
+        <div>
+          <label htmlFor="user">Ваше имя</label>
+        </div>
         <input
+          id="user"
           value={user}
           onChange={(e) => {
             setUser(e.target.value);
@@ -14,8 +17,11 @@ export default function Settings({ user, room, setUser, setRoom }) {
         />
       </div>
       <div>
-        <p>Комната</p>
+        <div>
+          <label htmlFor="room">Комната</label>
+        </div>
         <input
+          id="room"
           value={room}
           onChange={(e) => {
             setRoom(e.target.value);
