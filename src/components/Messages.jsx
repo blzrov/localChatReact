@@ -3,7 +3,7 @@ import React from "react";
 export default function Messages({ currentUser, messages }) {
   if (!messages) return <div>Напишите первым!</div>;
   return (
-    <ul>
+    <ul className="messages">
       {messages.map((message, index) => {
         const isCurrentUser = currentUser === message.user;
         return (

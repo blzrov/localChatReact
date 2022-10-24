@@ -18,6 +18,7 @@ function App() {
     update();
     window.addEventListener("storage", update);
     return () => window.removeEventListener("storage", update);
+    //нужно ли обернуть update в useCallback ? (ссылка меняется при рендере?)
   }, []);
 
   const update = () => {
@@ -39,7 +40,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="wrapper">
       <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
       <div>
         {room && <Messages currentUser={user} messages={data[room]} />}
