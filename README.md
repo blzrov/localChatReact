@@ -1,7 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 npm i
+
 npm start
+
 http://localhost:3000/
 
 https://stellular-semolina-82bb7f.netlify.app/

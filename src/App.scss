@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 720px;
+  text-align: center;
+  input,
+  button {
+    padding: 5px;
+    font-family: inherit;
+  }
+
+  .mb-20 {
+    margin-bottom: 20px;
+  }
+  .mt-10 {
+    margin-top: 10px;
+  }
+}
+
+.messages {
+  height: 60vh; //70
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: auto;
+  list-style: none;
+  li {
+    margin: 5px 0;
+    padding: 5px;
+    padding-left: 32px;
+    position: relative;
+    border-radius: 10px;
+    background-color: rgb(231, 229, 229);
+  }
+  .currentUserMessage {
+    align-self: flex-end;
+    background-color: rgba(42, 117, 255, 0.336);
+  }
+  .name {
+    color: blue;
+  }
+}
+
+.messageQuote {
+  text-decoration: underline;
+}
+.nameQuote {
+  color: red;
+}
+.buttonQuote {
+  width: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.inputMessageQuote {
+  padding-left: 32px;
+  display: inline-block;
+  position: relative;
+  text-decoration: underline;
+}
+
+.inputMessageMain {
+  position: relative;
+  input {
+    width: 50%;
+  }
+  .myEmojiPicker {
+    position: absolute;
+    bottom: 32px;
+    right: 0;
+  }
+}

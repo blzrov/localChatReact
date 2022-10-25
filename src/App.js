@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import "./App.css";
+import "./App.scss";
 import Settings from "./components/Settings";
 import Messages from "./components/Messages";
 
