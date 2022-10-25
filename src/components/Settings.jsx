@@ -22,6 +22,7 @@ export default function Settings({ setSettings }) {
           }}
         />
       </div>
+
       <div>
         <div>
           <label htmlFor="room">Комната</label>
@@ -35,6 +36,7 @@ export default function Settings({ setSettings }) {
           }}
         />
       </div>
+
       <div className="mt-10">
         <button
           onClick={() => {
@@ -48,6 +50,7 @@ export default function Settings({ setSettings }) {
         >
           Подтвердить
         </button>
+
         <button
           onClick={() => {
             setUser("");

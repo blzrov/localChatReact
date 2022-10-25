@@ -3,13 +3,13 @@ import InputMessage from "./InputMessage";
 import { settingsContext } from "../App";
 
 export default function Messages({ messages = [], sendMessage }) {
-  const ul = useRef();
+  const ulRef = useRef();
   const [quote, setQuote] = useState({});
   const context = useContext(settingsContext);
 
   useEffect(() => {
-    if (!ul.current) return;
-    ul.current.scrollTop = ul.current.scrollHeight;
+    if (!ulRef.current) return;
+    ulRef.current.scrollTop = ulRef.current.scrollHeight;
   }, [messages]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Messages({ messages = [], sendMessage }) {
   return (
     <div>
       {messages.length === 0 ? "Напишите первое сообщение!" : null}
-      <ul ref={ul} className="messages mb-20">
+      <ul ref={ulRef} className="messages mb-20">
         {messages.map((message, index) => {
           const isCurrentUser = context.user === message.user;
           const haveQuote = message.quote?.value && message.quote?.user;
