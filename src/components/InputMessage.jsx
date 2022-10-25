@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -22,20 +21,7 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
   React.useEffect(() => setInputValue(""), [context]);
   //quote в массагес?
   return (
-    <div className="inputMessage mb-20">
-      {quote.value && (
-        <div className="inputMessageQuote mb-20">
-          <i className="tooltipI">Ответ на: </i>
-          <Tooltip open={true} arrow={true} title={quote.value} placement="top">
-            <Button size="small">
-              <span className="tooltipName">{quote.user}</span>
-            </Button>
-          </Tooltip>
-          <button className="buttonQuote" onClick={() => setQuote({})}>
-            x
-          </button>
-        </div>
-      )}
+    <div className="mb-20">
       <div className="inputMessageMain">
         <Stack direction="row" justifyContent="center" spacing={0.5}>
           <Box

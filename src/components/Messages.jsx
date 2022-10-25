@@ -28,17 +28,19 @@ export default function Messages({ messages = [], sendMessage }) {
           return (
             <li
               key={index}
-              className={isCurrentUser ? "currentUserMessage" : ""}
+              className={
+                isCurrentUser ? "message currentUserMessage" : "message"
+              }
             >
               {haveQuote && (
                 <div>
-                  <i className="tooltipI">В ответ:</i>
+                  <i className="tooltipI">В ответ: </i>
                   <Tooltip
                     arrow={true}
                     title={message.quote.value}
                     placement="top"
                   >
-                    <Button size="small">
+                    <Button className="tooltipButton" size="small">
                       <span className="tooltipName">{message.quote.user}</span>
                     </Button>
                   </Tooltip>
@@ -58,6 +60,24 @@ export default function Messages({ messages = [], sendMessage }) {
             </li>
           );
         })}
+        {quote.value && (
+          <li className="inputMessageQuote mb-20">
+            <i className="tooltipI">Ответ на: </i>
+            <Tooltip
+              open={true}
+              arrow={true}
+              title={quote.value}
+              placement="top"
+            >
+              <Button className="tooltipButton" size="small">
+                <span className="tooltipName">{quote.user}</span>
+              </Button>
+            </Tooltip>
+            <button className="buttonQuote" onClick={() => setQuote({})}>
+              x
+            </button>
+          </li>
+        )}
       </ul>
       <InputMessage
         sendMessage={sendMessage}

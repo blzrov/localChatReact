@@ -29,7 +29,7 @@
   align-items: flex-start;
   overflow: auto;
   list-style: none;
-  li {
+  .message {
     margin: 5px 0;
     padding: 5px 10px;
     padding-left: 32px;
@@ -57,6 +57,8 @@
   padding-left: 32px;
   display: inline-block;
   position: relative;
+  align-self: center;
+  margin-top: auto;
 }
 
 .inputMessageMain {
@@ -76,4 +78,9 @@
   text-transform: none;
   color: #800080;
   border-bottom: 1px solid black;
+}
+
+.tooltipButton {
+  padding: 0 !important;
+  justify-content: start !important;
 }
