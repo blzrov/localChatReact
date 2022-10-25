@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 export default function Settings({ setSettings }) {
   const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
@@ -8,59 +11,68 @@ export default function Settings({ setSettings }) {
   React.useEffect(() => setSettings({ user, room }), []);
 
   return (
-    <div className="mb-20">
+    <div className="mt-10 mb-20">
       <div>
         <div>
-          <label htmlFor="user">Ваше имя</label>
+          <TextField
+            value={user}
+            onChange={(e) => {
+              setUser(e.target.value);
+            }}
+            id="outlined-basic"
+            label="Ваше имя"
+            variant="outlined"
+            size="small"
+            margin="dense"
+          />
         </div>
-        <input
-          id="user"
-          value={user}
-          className="input"
-          onChange={(e) => {
-            setUser(e.target.value);
-          }}
-        />
-      </div>
 
-      <div>
         <div>
-          <label htmlFor="room">Комната</label>
+          <TextField
+            value={room}
+            onChange={(e) => {
+              setRoom(e.target.value);
+            }}
+            id="outlined-basic"
+            label="Комната"
+            variant="outlined"
+            size="small"
+            margin="dense"
+          />
         </div>
-        <input
-          id="room"
-          value={room}
-          className="input"
-          onChange={(e) => {
-            setRoom(e.target.value);
-          }}
-        />
       </div>
 
       <div className="mt-10">
-        <button
-          onClick={() => {
-            setSettings({});
-            if (user && room) {
-              setSettings({ user, room });
-              sessionStorage.setItem("user", user);
-              sessionStorage.setItem("room", room);
-            }
-          }}
-        >
-          Подтвердить
-        </button>
+        <Stack direction="row" justifyContent="center" spacing={1}>
+          <Button
+            onClick={() => {
+              setSettings({});
+              if (user && room) {
+                setSettings({ user, room });
+                sessionStorage.setItem("user", user);
+                sessionStorage.setItem("room", room);
+              }
+            }}
+            variant="contained"
+            size="small"
+          >
+            Подтвердить
+          </Button>
 
-        <button
-          onClick={() => {
-            setUser("");
-            setRoom("");
-            setSettings({});
-            sessionStorage.clear();
-          }}
-        >
-          Выйти
-        </button>
+          <Button
+            onClick={() => {
+              setUser("");
+              setRoom("");
+              setSettings({});
+              sessionStorage.clear();
+            }}
+            variant="outlined"
+            size="small"
+            color="error"
+          >
+            Выйти
+          </Button>
+        </Stack>
       </div>
     </div>
   );
