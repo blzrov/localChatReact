@@ -20,7 +20,7 @@ function App() {
     getData();
   };
 
-  const sendMessage = (value, quote) => {
+  const sendMessage = (value, quote, media) => {
     if (!dataRef.current[settings.room]) {
       dataRef.current[settings.room] = [];
     }
@@ -28,6 +28,7 @@ function App() {
       user: settings.user,
       value,
       quote: quote || null,
+      media: media || null,
     });
     saveData();
   };

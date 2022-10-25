@@ -47,7 +47,16 @@ export default function Messages({ messages = [], sendMessage }) {
                 </div>
               )}
               {!isCurrentUser && <span className="name">{message.user}: </span>}
-              {message.value}
+              {message.media ? (
+                <message.media
+                  width={150}
+                  src={message.value}
+                  alt={message.media}
+                  controls
+                />
+              ) : (
+                message.value
+              )}
               <button
                 className="buttonQuote"
                 disabled={quote.value}

@@ -4,18 +4,25 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import EmojiPicker from "emoji-picker-react";
+
 import { settingsContext } from "../App";
+import Media from "./inputMedia";
 
 export default function InputMessage({ sendMessage, quote, setQuote }) {
   const [inputValue, setInputValue] = useState("");
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
   const context = useContext(settingsContext);
 
-  const send = () => {
-    sendMessage(inputValue, quote);
+  const send = (inputMedia, media) => {
+    inputMedia && media
+      ? sendMessage(inputMedia, quote, media)
+      : sendMessage(inputValue, quote, null);
+
     setQuote({});
     setInputValue("");
     setIsEmojiOpen(false);
+    setIsMediaOpen(false);
   };
 
   React.useEffect(() => setInputValue(""), [context]);
@@ -49,13 +56,34 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
 
           <Button
             onClick={() => {
-              setIsEmojiOpen(!isEmojiOpen);
+              if (isEmojiOpen) {
+                setIsEmojiOpen(false);
+                return;
+              }
+              setIsEmojiOpen(true);
+              setIsMediaOpen(false);
             }}
             variant="contained"
             color="secondary"
             size="small"
           >
             Emoji
+          </Button>
+
+          <Button
+            onClick={() => {
+              if (isMediaOpen) {
+                setIsMediaOpen(false);
+                return;
+              }
+              setIsMediaOpen(true);
+              setIsEmojiOpen(false);
+            }}
+            variant="contained"
+            color="secondary"
+            size="small"
+          >
+            Медиа
           </Button>
 
           <Button
@@ -70,6 +98,7 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
         </Stack>
 
         <div className="myEmojiPicker">
+          {isMediaOpen && <Media send={send} />}
           {isEmojiOpen && (
             <EmojiPicker
               lazyLoadEmojis={true}
