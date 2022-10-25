@@ -1,4 +1,8 @@
 import React, { useState, useContext } from "react";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import EmojiPicker from "emoji-picker-react";
 import { settingsContext } from "../App";
 
@@ -30,26 +34,52 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
         </div>
       )}
       <div className="inputMessageMain">
-        <input
-          value={inputValue}
-          className="input"
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && inputValue) {
-              send();
-            }
-          }}
-        />
-        <button
-          onClick={() => {
-            setIsEmojiOpen(!isEmojiOpen);
-          }}
-        >
-          Emoji
-        </button>
-        <button disabled={!inputValue} onClick={send}>
-          Отправить
-        </button>
+        <Stack direction="row" justifyContent="center" spacing={0.5}>
+          <Box
+            sx={{
+              width: 720,
+              maxWidth: "50%",
+            }}
+          >
+            <TextField
+              fullWidth
+              hiddenLabel
+              value={inputValue}
+              placeholder="Введите сообщение..."
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && inputValue) {
+                  send();
+                }
+              }}
+              id="filled-basic"
+              variant="filled"
+              size="small"
+            />
+          </Box>
+
+          <Button
+            onClick={() => {
+              setIsEmojiOpen(!isEmojiOpen);
+            }}
+            variant="contained"
+            color="secondary"
+            size="small"
+          >
+            Emoji
+          </Button>
+
+          <Button
+            disabled={!inputValue}
+            onClick={send}
+            variant="contained"
+            color="success"
+            size="small"
+          >
+            Отправить
+          </Button>
+        </Stack>
+
         <div className="myEmojiPicker">
           {isEmojiOpen && (
             <EmojiPicker
