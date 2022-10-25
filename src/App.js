@@ -2,14 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./App.css";
 import Settings from "./components/Settings";
 import Messages from "./components/Messages";
-import InputMessage from "./components/InputMessage";
 
 function App() {
   const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
   const [room, setRoom] = useState(() => sessionStorage.getItem("room") || "");
   const [data, setData] = useState([]);
-  const [quote, setQuote] = useState({}); //его тут быть не должно?
-
   const dataRef = useRef();
 
   const getData = useCallback(async () => {
@@ -22,12 +19,11 @@ function App() {
     getData();
   };
 
-  const sendMessage = (value) => {
+  const sendMessage = (value, quote) => {
     if (!dataRef.current[room]) {
       dataRef.current[room] = [];
     }
     dataRef.current[room].push({ user, value, quote: quote || null });
-    setQuote({});
     saveData();
   };
 
@@ -40,6 +36,7 @@ function App() {
     return () => window.removeEventListener("storage", getData);
   }, [getData]);
 
+  console.log(data[room]);
   return (
     <div className="wrapper">
       <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
@@ -48,15 +45,7 @@ function App() {
           <Messages
             currentUser={user}
             messages={data[room]}
-            quote={quote}
-            setQuote={setQuote}
-          />
-        )}
-        {user && room && (
-          <InputMessage
             sendMessage={sendMessage}
-            quote={quote}
-            setQuote={setQuote}
           />
         )}
       </div>

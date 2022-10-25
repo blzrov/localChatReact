@@ -17,6 +17,10 @@
   font-family: inherit;
 }
 
+.writeFirst {
+  height: 70vh;
+}
+
 .messages {
   height: 70vh;
   display: flex;
@@ -63,6 +67,7 @@
   padding-left: 32px;
   display: inline-block;
   position: relative;
+  text-decoration: underline;
 }
 
 .inputMessage input {

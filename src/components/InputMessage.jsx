@@ -13,9 +13,9 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
   return (
     <div className="inputMessage mb-20">
       {quote.value && (
-        <div className="inputMessageQuote messageQuote mb-20">
-          <i>Ответ на </i>
-          <span className="nameQuote">{quote.user} </span>
+        <div className="inputMessageQuote mb-20">
+          <i>Ответ на: </i>
+          <span className="nameQuote">{quote.user}: </span>
           {quote.value.length > 71
             ? quote.value.slice(0, 70) + "..."
             : quote.value}
@@ -48,6 +48,9 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
         <div className="myEmojiPicker">
           {isEmojiOpen && (
             <EmojiPicker
+              lazyLoadEmojis={true}
+              skinTonesDisabled={true}
+              searchDisabled={true}
               onEmojiClick={(e) => setInputValue(inputValue + e.emoji)}
             />
           )}
