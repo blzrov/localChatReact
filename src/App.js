@@ -8,7 +8,7 @@ function App() {
   const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
   const [room, setRoom] = useState(() => sessionStorage.getItem("room") || "");
   const [data, setData] = useState([]);
-  const [quote, setQuote] = useState({});
+  const [quote, setQuote] = useState({}); //его тут быть не должно?
 
   const dataRef = useRef();
 

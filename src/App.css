@@ -11,33 +11,28 @@
   text-align: center;
 }
 
-.settings {
-  margin-bottom: 20px;
-}
-
-.settings input,
-.inputMessage input {
-  padding: 5px;
-  font-family: inherit;
-}
-
+.input,
 .wrapper button {
   padding: 5px;
   font-family: inherit;
 }
 
 .messages {
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow: auto;
   list-style: none;
 }
 
 .messages li {
   margin: 5px 0;
   padding: 5px;
-  background-color: gainsboro;
+  padding-left: 32px;
+  position: relative;
   border-radius: 10px;
+  background-color: rgb(231, 229, 229);
 }
 
 .messages .currentUserMessage {
@@ -45,10 +40,41 @@
   background-color: rgba(42, 117, 255, 0.336);
 }
 
+.messageQuote {
+  text-decoration: underline;
+}
+
 .name {
   color: blue;
 }
 
-.messageQuote {
-  text-decoration: underline;
+.nameQuote {
+  color: red;
+}
+
+.buttonQuote {
+  width: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.inputMessageQuote {
+  padding-left: 32px;
+  display: inline-block;
+  position: relative;
+}
+
+.inputMessage input {
+  width: 50%;
+}
+
+.myEmojiPicker {
+  position: absolute;
+  bottom: 32px;
+  right: 0;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
 }

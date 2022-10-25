@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Settings({ user, room, setUser, setRoom }) {
   return (
-    <div className="settings">
+    <div className="mb-20">
       <div>
         <div>
           <label htmlFor="user">Ваше имя</label>
@@ -10,6 +10,7 @@ export default function Settings({ user, room, setUser, setRoom }) {
         <input
           id="user"
           value={user}
+          className="input"
           onChange={(e) => {
             setUser(e.target.value);
             sessionStorage.setItem("user", e.target.value);
@@ -23,6 +24,7 @@ export default function Settings({ user, room, setUser, setRoom }) {
         <input
           id="room"
           value={room}
+          className="input"
           onChange={(e) => {
             setRoom(e.target.value);
             sessionStorage.setItem("room", e.target.value);
