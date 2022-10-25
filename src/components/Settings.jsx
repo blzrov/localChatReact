@@ -1,6 +1,5 @@
-import React from "react";
-
 export default function Settings({ user, room, setUser, setRoom }) {
+  const f = () => {};
   return (
     <div className="mb-20">
       <div>

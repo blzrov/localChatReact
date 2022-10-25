@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import InputMessage from "./InputMessage";
 
-export default function Messages({ currentUser, messages, sendMessage }) {
+export default function Messages({ currentUser, messages = [], sendMessage }) {
   const ul = useRef();
 
   useEffect(() => {
@@ -11,22 +11,9 @@ export default function Messages({ currentUser, messages, sendMessage }) {
 
   const [quote, setQuote] = useState({});
 
-  if (!messages)
-    return (
-      <>
-        <div className="writeFirst">Напишите первым!</div>
-        {currentUser && (
-          <InputMessage
-            sendMessage={sendMessage}
-            quote={quote}
-            setQuote={setQuote}
-          />
-        )}
-      </>
-    );
-
   return (
-    <>
+    <div>
+      {messages.length === 0 ? "Напишите первое сообщение!" : null}
       <ul ref={ul} className="messages mb-20">
         {messages.map((message, index) => {
           const isCurrentUser = currentUser === message.user;
@@ -62,13 +49,11 @@ export default function Messages({ currentUser, messages, sendMessage }) {
           );
         })}
       </ul>
-      {currentUser && (
-        <InputMessage
-          sendMessage={sendMessage}
-          quote={quote}
-          setQuote={setQuote}
-        />
-      )}
-    </>
+      <InputMessage
+        sendMessage={sendMessage}
+        quote={quote}
+        setQuote={setQuote}
+      />
+    </div>
   );
 }

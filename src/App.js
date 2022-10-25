@@ -36,19 +36,18 @@ function App() {
     return () => window.removeEventListener("storage", getData);
   }, [getData]);
 
-  console.log(data[room]);
   return (
     <div className="App">
       <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
-      <div>
-        {room && (
-          <Messages
-            currentUser={user}
-            messages={data[room]}
-            sendMessage={sendMessage}
-          />
-        )}
-      </div>
+      {user && room ? (
+        <Messages
+          currentUser={user}
+          messages={data[room]}
+          sendMessage={sendMessage}
+        />
+      ) : (
+        "Введите имя и комнату"
+      )}
     </div>
   );
 }
