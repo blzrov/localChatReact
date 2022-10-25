@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-.wrapper {
+.App {
   margin: 0 auto;
   padding: 0 20px;
   max-width: 720px;
@@ -12,7 +12,7 @@
 }
 
 .input,
-.wrapper button {
+.App button {
   padding: 5px;
   font-family: inherit;
 }
@@ -61,6 +61,10 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.inputMessageMain {
+  position: relative;
 }
 
 .inputMessageQuote {

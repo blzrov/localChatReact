@@ -6,7 +6,8 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
   const send = () => {
-    sendMessage(inputValue);
+    sendMessage(inputValue, quote);
+    setQuote({});
     setInputValue("");
   };
 
@@ -24,7 +25,7 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
           </button>
         </div>
       )}
-      <div style={{ position: "relative" }}>
+      <div className="inputMessageMain">
         <input
           value={inputValue}
           className="input"

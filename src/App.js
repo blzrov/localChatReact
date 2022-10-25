@@ -38,7 +38,7 @@ function App() {
 
   console.log(data[room]);
   return (
-    <div className="wrapper">
+    <div className="App">
       <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
       <div>
         {room && (
