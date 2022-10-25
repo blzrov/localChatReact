@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
+import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import EmojiPicker from "emoji-picker-react";
 import { settingsContext } from "../App";
 
@@ -19,16 +20,17 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
   };
 
   React.useEffect(() => setInputValue(""), [context]);
-
+  //quote в массагес?
   return (
     <div className="inputMessage mb-20">
       {quote.value && (
         <div className="inputMessageQuote mb-20">
-          <i>Ответ на: </i>
-          <span className="nameQuote">{quote.user}: </span>
-          {quote.value.length > 71
-            ? quote.value.slice(0, 70) + "..."
-            : quote.value}
+          <i className="tooltipI">Ответ на: </i>
+          <Tooltip open={true} arrow={true} title={quote.value} placement="top">
+            <Button size="small">
+              <span className="tooltipName">{quote.user}</span>
+            </Button>
+          </Tooltip>
           <button className="buttonQuote" onClick={() => setQuote({})}>
             x
           </button>

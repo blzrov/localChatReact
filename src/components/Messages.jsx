@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
 import InputMessage from "./InputMessage";
 import { settingsContext } from "../App";
 
@@ -29,14 +31,17 @@ export default function Messages({ messages = [], sendMessage }) {
               className={isCurrentUser ? "currentUserMessage" : ""}
             >
               {haveQuote && (
-                <div className="messageQuote">
-                  <span className="nameQuote">
-                    <i>В ответ: </i>
-                    {message.quote.user + ": "}
-                  </span>
-                  {message.quote.value.length > 71
-                    ? message.quote.value.slice(0, 70) + "..."
-                    : message.quote.value}
+                <div>
+                  <i className="tooltipI">В ответ:</i>
+                  <Tooltip
+                    arrow={true}
+                    title={message.quote.value}
+                    placement="top"
+                  >
+                    <Button size="small">
+                      <span className="tooltipName">{message.quote.user}</span>
+                    </Button>
+                  </Tooltip>
                 </div>
               )}
               {!isCurrentUser && <span className="name">{message.user}: </span>}
