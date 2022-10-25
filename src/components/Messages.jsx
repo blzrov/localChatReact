@@ -1,22 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import InputMessage from "./InputMessage";
+import { settingsContext } from "../App";
 
-export default function Messages({ currentUser, messages = [], sendMessage }) {
+export default function Messages({ messages = [], sendMessage }) {
   const ul = useRef();
+  const [quote, setQuote] = useState({});
+  const context = useContext(settingsContext);
 
   useEffect(() => {
     if (!ul.current) return;
     ul.current.scrollTop = ul.current.scrollHeight;
   }, [messages]);
 
-  const [quote, setQuote] = useState({});
+  useEffect(() => {
+    setQuote({});
+  }, [context]);
 
   return (
     <div>
       {messages.length === 0 ? "Напишите первое сообщение!" : null}
       <ul ref={ul} className="messages mb-20">
         {messages.map((message, index) => {
-          const isCurrentUser = currentUser === message.user;
+          const isCurrentUser = context.user === message.user;
           const haveQuote = message.quote?.value && message.quote?.user;
           return (
             <li

@@ -3,9 +3,10 @@ import "./App.css";
 import Settings from "./components/Settings";
 import Messages from "./components/Messages";
 
+export const settingsContext = React.createContext({});
+
 function App() {
-  const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
-  const [room, setRoom] = useState(() => sessionStorage.getItem("room") || "");
+  const [settings, setSettings] = useState({});
   const [data, setData] = useState([]);
   const dataRef = useRef();
 
@@ -20,10 +21,14 @@ function App() {
   };
 
   const sendMessage = (value, quote) => {
-    if (!dataRef.current[room]) {
-      dataRef.current[room] = [];
+    if (!dataRef.current[settings.room]) {
+      dataRef.current[settings.room] = [];
     }
-    dataRef.current[room].push({ user, value, quote: quote || null });
+    dataRef.current[settings.room].push({
+      user: settings.user,
+      value,
+      quote: quote || null,
+    });
     saveData();
   };
 
@@ -38,13 +43,11 @@ function App() {
 
   return (
     <div className="App">
-      <Settings user={user} room={room} setUser={setUser} setRoom={setRoom} />
-      {user && room ? (
-        <Messages
-          currentUser={user}
-          messages={data[room]}
-          sendMessage={sendMessage}
-        />
+      <Settings setSettings={setSettings} />
+      {settings.user && settings.room ? (
+        <settingsContext.Provider value={settings}>
+          <Messages messages={data[settings.room]} sendMessage={sendMessage} />
+        </settingsContext.Provider>
       ) : (
         "Введите имя и комнату"
       )}

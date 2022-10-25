@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import EmojiPicker from "emoji-picker-react";
+import { settingsContext } from "../App";
 
 export default function InputMessage({ sendMessage, quote, setQuote }) {
   const [inputValue, setInputValue] = useState("");
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const context = useContext(settingsContext);
 
   const send = () => {
     sendMessage(inputValue, quote);
     setQuote({});
     setInputValue("");
   };
+
+  React.useEffect(() => setInputValue(""), [context]);
 
   return (
     <div className="inputMessage mb-20">
