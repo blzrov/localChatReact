@@ -15,6 +15,7 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
     sendMessage(inputValue, quote);
     setQuote({});
     setInputValue("");
+    setIsEmojiOpen(false);
   };
 
   React.useEffect(() => setInputValue(""), [context]);
