@@ -6,11 +6,7 @@
 
 .App {
   margin: 0 auto;
-  padding: 0 20px;
   padding-top: 10px;
-  max-width: 720px;
-  text-align: center;
-
   button {
     padding: 5px;
     font-family: inherit;
@@ -51,7 +47,7 @@
   position: relative;
   .wrapperMedia {
     position: absolute;
-    bottom: 50px;
+    bottom: 90px;
     right: 0;
   }
 }
@@ -91,4 +87,48 @@
 .tooltipButton {
   padding: 0 !important;
   justify-content: start !important;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.left {
+  padding: 20px;
+  margin-right: 10px;
+  .chats {
+    // max-height: 500px;
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    list-style: none;
+  }
+  .chats li {
+    padding: 15px;
+    background-color: #e0f2f3;
+    border-bottom: 1px solid gray;
+  }
+  .chats li:hover {
+    cursor: pointer;
+  }
+}
+
+.right {
+  padding: 20px;
+}
+
+@media (max-width: 720px) {
+  .App {
+    text-align: center;
+    padding: 20px;
+    padding-top: 10px;
+  }
+  .wrapper {
+    flex-direction: column;
+  }
+  .chatsWrapper {
+    display: none;
+  }
 }

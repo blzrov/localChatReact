@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { settingsContext } from "../App";
 
 export default function Settings({ setSettings }) {
   const [user, setUser] = useState(() => sessionStorage.getItem("user") || "");
   const [room, setRoom] = useState(() => sessionStorage.getItem("room") || "");
 
+  const context = useContext(settingsContext);
+  useEffect(() => setRoom(context.room), [context]);
+
   // eslint-disable-next-line
-  React.useEffect(() => setSettings({ user, room }), []);
+  useEffect(() => setSettings({ user, room }), []);
 
   return (
     <div className="mb-20">

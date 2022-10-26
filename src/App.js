@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./App.scss";
 import Settings from "./components/Settings";
+import Chats from "./components/Chats";
 import Messages from "./components/Messages";
 
 export const settingsContext = React.createContext({});
@@ -29,6 +30,7 @@ function App() {
       value: value,
       quote: quote || null,
       media: media || null,
+      date: Date.now(),
     });
     saveData();
   };
@@ -44,14 +46,24 @@ function App() {
 
   return (
     <div className="App">
-      <Settings setSettings={setSettings} />
-      {settings.user && settings.room ? (
+      <div className="wrapper">
         <settingsContext.Provider value={settings}>
-          <Messages messages={data[settings.room]} sendMessage={sendMessage} />
+          <div className="left">
+            <Settings setSettings={setSettings} />
+            <Chats data={data} setSettings={setSettings} />
+          </div>
+          <div className="right">
+            {settings.user && settings.room ? (
+              <Messages
+                messages={data[settings.room]}
+                sendMessage={sendMessage}
+              />
+            ) : (
+              "Введите имя и комнату"
+            )}
+          </div>
         </settingsContext.Provider>
-      ) : (
-        "Введите имя и комнату"
-      )}
+      </div>
     </div>
   );
 }

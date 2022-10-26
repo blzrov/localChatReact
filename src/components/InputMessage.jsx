@@ -31,8 +31,8 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
       <Stack direction="row" justifyContent="center" spacing={0.5}>
         <Box
           sx={{
-            width: 720,
-            maxWidth: "50%",
+            width: "70%",
+            maxWidth: "100%",
           }}
         >
           <TextField
@@ -53,38 +53,6 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
         </Box>
 
         <Button
-          onClick={() => {
-            if (isEmojiOpen) {
-              setIsEmojiOpen(false);
-              return;
-            }
-            setIsEmojiOpen(true);
-            setIsMediaOpen(false);
-          }}
-          variant="contained"
-          color="secondary"
-          size="small"
-        >
-          Emoji
-        </Button>
-
-        <Button
-          onClick={() => {
-            if (isMediaOpen) {
-              setIsMediaOpen(false);
-              return;
-            }
-            setIsMediaOpen(true);
-            setIsEmojiOpen(false);
-          }}
-          variant="contained"
-          color="secondary"
-          size="small"
-        >
-          Медиа
-        </Button>
-
-        <Button
           disabled={!value}
           onClick={send}
           variant="contained"
@@ -94,6 +62,42 @@ export default function InputMessage({ sendMessage, quote, setQuote }) {
           Отправить
         </Button>
       </Stack>
+
+      <div className="mt-10">
+        <Stack direction="row" justifyContent="center" spacing={0.5}>
+          <Button
+            onClick={() => {
+              if (isEmojiOpen) {
+                setIsEmojiOpen(false);
+                return;
+              }
+              setIsEmojiOpen(true);
+              setIsMediaOpen(false);
+            }}
+            variant="contained"
+            color="secondary"
+            size="small"
+          >
+            Emoji
+          </Button>
+
+          <Button
+            onClick={() => {
+              if (isMediaOpen) {
+                setIsMediaOpen(false);
+                return;
+              }
+              setIsMediaOpen(true);
+              setIsEmojiOpen(false);
+            }}
+            variant="contained"
+            color="secondary"
+            size="small"
+          >
+            Медиа
+          </Button>
+        </Stack>
+      </div>
 
       <div className="wrapperMedia">
         {isMediaOpen && <Media send={send} />}
