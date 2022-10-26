@@ -49,7 +49,7 @@ export default function Messages({ messages = [], sendMessage }) {
               {!isCurrentUser && <span className="name">{message.user}: </span>}
               {message.media ? (
                 <message.media
-                  width={150}
+                  width={160}
                   src={message.value}
                   alt=""
                   controls
