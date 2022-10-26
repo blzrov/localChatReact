@@ -7,6 +7,7 @@
 .App {
   margin: 0 auto;
   padding: 0 20px;
+  padding-top: 10px;
   max-width: 720px;
   text-align: center;
 
@@ -23,7 +24,7 @@
 }
 
 .messages {
-  height: 60vh; //70
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -46,6 +47,22 @@
   }
 }
 
+.inputMessage {
+  position: relative;
+  .wrapperMedia {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+  }
+}
+
+.InputMessageMedia {
+  padding: 20px;
+  border: 1px solid blue;
+  border-radius: 10px;
+  background-color: white;
+}
+
 .buttonQuote {
   width: 25px;
   position: absolute;
@@ -54,20 +71,11 @@
 }
 
 .inputMessageQuote {
+  margin-top: auto;
   padding-left: 32px;
   display: inline-block;
-  position: relative;
   align-self: center;
-  margin-top: auto;
-}
-
-.inputMessageMain {
   position: relative;
-  .myEmojiPicker {
-    position: absolute;
-    bottom: 50px;
-    right: 0;
-  }
 }
 
 .tooltipI {

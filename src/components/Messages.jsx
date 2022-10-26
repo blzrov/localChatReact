@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import InputMessage from "./InputMessage";
 import { settingsContext } from "../App";
 
@@ -10,13 +10,13 @@ export default function Messages({ messages = [], sendMessage }) {
   const context = useContext(settingsContext);
 
   useEffect(() => {
-    if (!ulRef.current) return;
-    ulRef.current.scrollTop = ulRef.current.scrollHeight;
-  }, [messages]);
-
-  useEffect(() => {
     setQuote({});
   }, [context]);
+
+  useEffect(() => {
+    if (!ulRef.current) return;
+    ulRef.current.scrollTop = ulRef.current.scrollHeight;
+  }, [messages, quote]);
 
   return (
     <div>
@@ -51,7 +51,7 @@ export default function Messages({ messages = [], sendMessage }) {
                 <message.media
                   width={150}
                   src={message.value}
-                  alt={message.media}
+                  alt=""
                   controls
                 />
               ) : (
@@ -72,12 +72,7 @@ export default function Messages({ messages = [], sendMessage }) {
         {quote.value && (
           <li className="inputMessageQuote mb-20">
             <i className="tooltipI">Ответ на: </i>
-            <Tooltip
-              open={true}
-              arrow={true}
-              title={quote.value}
-              placement="top"
-            >
+            <Tooltip arrow={true} title={quote.value} placement="top">
               <Button className="tooltipButton" size="small">
                 <span className="tooltipName">{quote.user}</span>
               </Button>

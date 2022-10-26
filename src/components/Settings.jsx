@@ -11,35 +11,33 @@ export default function Settings({ setSettings }) {
   React.useEffect(() => setSettings({ user, room }), []);
 
   return (
-    <div className="mt-10 mb-20">
+    <div className="mb-20">
       <div>
-        <div>
-          <TextField
-            value={user}
-            onChange={(e) => {
-              setUser(e.target.value);
-            }}
-            id="outlined-basic"
-            label="Ваше имя"
-            variant="outlined"
-            size="small"
-            margin="dense"
-          />
-        </div>
+        <TextField
+          value={user}
+          onChange={(e) => {
+            setUser(e.target.value);
+          }}
+          id="outlined-basic"
+          label="Ваше имя"
+          variant="outlined"
+          size="small"
+          margin="dense"
+        />
+      </div>
 
-        <div>
-          <TextField
-            value={room}
-            onChange={(e) => {
-              setRoom(e.target.value);
-            }}
-            id="outlined-basic"
-            label="Комната"
-            variant="outlined"
-            size="small"
-            margin="dense"
-          />
-        </div>
+      <div>
+        <TextField
+          value={room}
+          onChange={(e) => {
+            setRoom(e.target.value);
+          }}
+          id="outlined-basic"
+          label="Комната"
+          variant="outlined"
+          size="small"
+          margin="dense"
+        />
       </div>
 
       <div className="mt-10">

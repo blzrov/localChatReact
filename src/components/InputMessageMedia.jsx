@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import React, { useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { settingsContext } from "../App";
 
 const exampleData = {
   audio: "https://samplelib.com/lib/preview/mp3/sample-6s.mp3",
@@ -10,62 +11,69 @@ const exampleData = {
   video: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
 };
 
-export default function Media(props) {
-  const [alignment, setAlignment] = useState("img");
+export default function InputMessageMedia({ send }) {
+  const [url, setUrl] = useState("");
+  const [type, setType] = useState("img");
   const [example, setExample] = useState(null);
-  const [inputValue, setInputValue] = useState("");
+
+  const context = useContext(settingsContext); //input media add
+  React.useEffect(() => {
+    setUrl("");
+    setType("img");
+    setExample(null);
+  }, [context]);
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        padding: "20px",
-        border: "1px solid blue",
-      }}
-    >
+    <div className="InputMessageMedia">
       <ToggleButtonGroup
-        color="primary"
         value={example}
-        exclusive
         onChange={(e) => {
           setExample(e.target.value);
-          setAlignment(e.target.value);
-          setInputValue(exampleData[e.target.value]);
+          setType(e.target.value);
+          setUrl(exampleData[e.target.value]);
         }}
+        color="primary"
         aria-label="Platform"
+        exclusive
       >
         <ToggleButton value="audio">Пример</ToggleButton>
         <ToggleButton value="img">Пример</ToggleButton>
         <ToggleButton value="video">Пример</ToggleButton>
       </ToggleButtonGroup>
+
       <br />
+
       <ToggleButtonGroup
-        color="primary"
-        value={alignment}
-        exclusive
+        value={type}
         onChange={(e) => {
           setExample(null);
-          setAlignment(e.target.value);
+          setType(e.target.value);
         }}
+        color="primary"
         aria-label="Platform"
+        exclusive
       >
         <ToggleButton value="audio">Аудио</ToggleButton>
         <ToggleButton value="img">Фото</ToggleButton>
         <ToggleButton value="video">Видео</ToggleButton>
       </ToggleButtonGroup>
-      <div>
-        <TextField
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          id="standard-basic"
-          label="Вставьте URL"
-          variant="standard"
-          margin="normal"
-        />
-      </div>
+
+      <br />
+
+      <TextField
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        id="standard-basic"
+        label="Вставьте URL"
+        variant="standard"
+        margin="normal"
+      />
+
+      <br />
+
       <Button
-        disabled={!inputValue}
-        onClick={() => props.send(inputValue, alignment)}
+        disabled={!url}
+        onClick={() => send(url, type)}
         variant="contained"
         color="success"
         size="small"

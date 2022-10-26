@@ -26,7 +26,7 @@ function App() {
     }
     dataRef.current[settings.room].push({
       user: settings.user,
-      value,
+      value: value,
       quote: quote || null,
       media: media || null,
     });
